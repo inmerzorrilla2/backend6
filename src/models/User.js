@@ -34,4 +34,6 @@ User.beforeCreate(async(user) => {
     user.password = hashedPassword;
 });
 
+
+
 module.exports = User;
