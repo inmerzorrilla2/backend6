@@ -1,16 +1,17 @@
-const User = require("../../models/User")
+const User = require("../../models/User");
 
-const userCreate = async() => {
-
+const userCreate = async () => {
     const user = {
         firstName: "Juan",
         lastName: "Yidi",
         email: "juan@gmail.com",
         password: "juan1234",
-        phone: "+5756353523"
-    }
+        phone: "+575312323"
+    };
 
-    await User.create()
-}
+    // Pasar el objeto user al método create
+    await User.create(user);
+};
 
-module.exports = userCreate
+module.exports = userCreate;
+

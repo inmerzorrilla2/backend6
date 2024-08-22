@@ -4,7 +4,8 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
 const getAll = catchError(async(req, res) => {
-    const results = await User.findAll();
+    const {id} = req.user
+    const results = await User.findAll({where: {id}});
     return res.json(results);
 });
 
@@ -31,11 +32,12 @@ const update = catchError(async(req, res) => {
     const { id } = req.params;
 
 // impedir que se actualice el mail, el phone y el password
-
-    // delete req.body.password
-    // delete req.body.email
-    // delete req.body.phone
-
+for(let i in req.body){
+    delete req.body.email
+    delete req.body.password
+    delete req.body.phone
+}
+    
     const result = await User.update(
         req.body,
         { where: {id}, returning: true }
