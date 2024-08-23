@@ -90,5 +90,8 @@ test("PUT => BASE_URL, should return statusCode 200, and res.body.lastName === u
 test("DELETE => BASE_URL/:ID, should return statusCode 204", async () => {
     const res = await request(app)
     .delete(`${BASE_URL}/${userId}`)
+    .set('authorization', `Bearer ${TOKEN2}`)
+    expect(res.statusCode).toBe(204)
+    
 })
 
