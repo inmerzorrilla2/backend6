@@ -38,10 +38,10 @@ test("POST -> BASE_URL, should return statusCode 201, res.body.name === category
 test("GET --> BASE_URL, should return statusCode 200, and res.body.length === 1", async () => {
   const res = await request(app)
     .get(BASE_URL)
-  // console.log(res.body)
+  console.log(res.body)
   expect(res.statusCode).toBe(200)
   expect(res.body).toBeDefined()
-  // expect(res.body).toHaveLength(1)
+  expect(res.body).toHaveLength(1)
 }) 
 
 test("DELETE -> BASE_URL/categoryId, should return statusCode 204, and res.body.name === category.name", async () => {
