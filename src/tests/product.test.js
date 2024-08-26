@@ -20,35 +20,19 @@ beforeAll(async () => {
     email: "juan@gmail.com",
     password: "juan1234",
   }
-
   const res = await request(app)
     .post(BASE_URL_LOGIN)
     .send(hits)
-
-  TOKEN = res.body.token
-  // console.log(TOKEN);
-
- 
-
-  
-})
-
-// beforeEach(() => {
-//   console.log('Me ejecute antes del test');
-// })
-
-afterAll(async () => {
-  
+  TOKEN = res.body.token;
 })
 
 
-//!  TESTS
 
 test("POST -> 'BASE_URL', should return status code 201, and res.body.title === product.title", async () => {
 
   category = await Category.create({ name: 'ropa para dama' })
   product.categoryId=category.id;
-  console.log("este es el objeto a opasar",product)
+  
   const res = await request(app)
     .post(BASE_URL)
     .send(product)
