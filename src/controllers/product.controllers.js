@@ -4,12 +4,13 @@ const Category = require('../models/Category')
 
 const getAll = catchError(async(req, res) => {
     const results = await Product.findAll({include: [Category] });
-    console.log('este es el getAll', results)
-    return res.json(results);
+    
+    return res.status(200).json(results);
 });
 
 const create = catchError(async(req, res) => {
-    const result = await Product.create(req.body);
+   
+    const result = await Product.create(req.body)
     return res.status(201).json(result);
 });
 

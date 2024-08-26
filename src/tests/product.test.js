@@ -8,7 +8,11 @@ let category
 const BASE_URL_LOGIN = '/api/v1/users/login'
 const BASE_URL = '/api/v1/products'
 
-let product
+const  product = {
+  title: 'Jeans blue dama',
+  description: 'lorem 20',
+  price: 1234
+}
 let productId
 
 beforeAll(async () => {
@@ -24,37 +28,33 @@ beforeAll(async () => {
   TOKEN = res.body.token
   // console.log(TOKEN);
 
-  category = await Category.create({ name: 'ropa para dama' })
+ 
 
-  product = {
-    title: 'Jeans blue dama',
-    description: 'lorem 20',
-    price: 12.20,
-    categoryId: category.id
-  }
+  
 })
 
 // beforeEach(() => {
 //   console.log('Me ejecute antes del test');
 // })
 
-afterAll((async () => {
-  await category.destroy()
-}))
+afterAll(async () => {
+  
+})
 
 
 //!  TESTS
 
 test("POST -> 'BASE_URL', should return status code 201, and res.body.title === product.title", async () => {
 
-  // console.log(TOKEN);
-
+  category = await Category.create({ name: 'ropa para dama' })
+  product.categoryId=category.id;
+  console.log("este es el objeto a opasar",product)
   const res = await request(app)
     .post(BASE_URL)
     .send(product)
     .set('Authorization', `Bearer ${TOKEN}`)
 
-  // console.log(res.body);
+   console.log(res.body);
   productId = res.body.id
 
   expect(res.status).toBe(201)
@@ -115,11 +115,13 @@ test("PUT -> 'BASE_URL/:id', should return status code 200, and res.body.title =
 })
 
 test("DELETE -> 'BASE_URL/:id', should return status code 204", async () => {
+  console.log("productop id",productId)
   const res = await request(app)
     .delete(`${BASE_URL}/${productId}`)
     .set('Authorization', `Bearer ${TOKEN}`)
 
-  console.log(res.body);
+  
 
   expect(res.status).toBe(204)
+  await category.destroy()
 })

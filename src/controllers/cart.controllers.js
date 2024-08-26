@@ -21,7 +21,7 @@ const getAll = catchError(async (req, res) => {
         }
       ]
     });
-    return res.json(results);
+    return res.status(200).json(results);
   });
   
   
@@ -53,7 +53,7 @@ const getAll = catchError(async (req, res) => {
       ]
     });
     if (!result) return res.sendStatus(404);
-    return res.json(result);
+    return res.status(200).json(result);
   });
   
   const remove = catchError(async (req, res) => {
