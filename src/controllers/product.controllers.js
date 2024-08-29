@@ -43,7 +43,7 @@ const update = catchError(async(req, res) => {
 const setImagen = catchError(async(req, res)=>{
  const { id }= req.params;
  const product = await Product.findByPk(id)
- if(!product) return  res.status(404).json({"message":"not found"})
+ if(!product) return  res.status(404).json({"message":"This product doesn't exist"})
     await  product.setProductImgs(req.body)
  const img = await product.getProductImgs()
 
