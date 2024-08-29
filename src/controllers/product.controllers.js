@@ -1,9 +1,10 @@
 const catchError = require('../utils/catchError');
 const Product = require('../models/Product');
 const Category = require('../models/Category')
+const ProductImg = require('../models/ProductImg')
 
 const getAll = catchError(async(req, res) => {
-    const results = await Product.findAll({include: [Category] });
+    const results = await Product.findAll({include: [Category, ProductImg] });
     
     return res.status(200).json(results);
 });
@@ -16,7 +17,7 @@ const create = catchError(async(req, res) => {
 
 const getOne = catchError(async(req, res) => {
     const { id } = req.params;
-    const result = await Product.findByPk(id, {include: [Category] });
+    const result = await Product.findByPk(id, {include: [Category, ProductImg] });
     if(!result) return res.sendStatus(404);
     return res.json(result);
 });
@@ -38,10 +39,22 @@ const update = catchError(async(req, res) => {
     return res.json(result[1][0]);
 });
 
+//products/:id/images
+const setImagen = catchError(async(req, res)=>{
+ const { id }= req.params;
+ const product = await Product.findByPk(id)
+ if(!product) return  res.status(404).json({"message":"not found"})
+    await  product.setProductImgs(req.body)
+ const img = await product.getProductImgs()
+
+ return res.status(200).json(img)
+})
+
 module.exports = {
     getAll,
     create,
     getOne,
     remove,
-    update
+    update,
+    setImagen 
 }

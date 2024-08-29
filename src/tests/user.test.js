@@ -82,7 +82,6 @@ test("PUT => BASE_URL, should return statusCode 200, and res.body.lastName === u
     .put(`${BASE_URL}/${userId}`)
     .send(user2)
     .set('authorization', `Bearer ${TOKEN2}`)
-    console.log('respuesta', res.body)
     expect(res.statusCode).toBe(200)
     expect(res.body).toBeDefined() 
     

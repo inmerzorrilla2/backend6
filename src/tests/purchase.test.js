@@ -40,12 +40,19 @@ const  product = {
     title: 'Jeans blue dama',
     description: 'lorem 20',
     price: 1234
+    // categoryId: 1
     
   }
 
 const category = {
     name: "jeans"
 }
+
+afterAll(async() =>{
+    // await Car.destroy()
+    await productos.destroy()
+    await categoria.destroy()
+})
 
 test("POST => BASE_URL, should return statusCode 201, res.body.name === category.name", async() => {
     categoria = await Category.create(category)
@@ -74,12 +81,18 @@ test("GET => BASE_URL, should return statusCode 200, and res.body.length === 1",
         
         .get(BASE_URL)
         .set('authorization', `Bearer ${TOKEN}`)
-        console.log(res)
+      
 
         expect(res.statusCode).toBe(200)
         expect(res.body).toBeDefined()
         expect(res.body).toHaveLength(1)
-        
+
+    
+    await categoria.destroy()
+    // await productos.destroy()
+    await Car.destroy()
+    
+
 
     
 })
